@@ -25,6 +25,15 @@ class Contact(db.Model):
     message=db.Column(db.String(120),primary_key=False,nullable=False,unique=False)
 
 
+class Post(db.Model):
+    id=db.Column(db.Integer,primary_key=True)
+    heading=db.Column(db.String(120),primary_key=False,nullable=False,unique=False)
+    tagline=db.Column(db.String(120),primary_key=False,nullable=False,unique=False)
+    data=db.Column(db.String(120),primary_key=False,nullable=False,unique=False)
+    date = db.Column(db.String(12),  nullable=True)
+    # date=db.Column(db.String(120),primary_key=False,nullable=False,unique=False)
+
+
 
    
 
@@ -32,7 +41,8 @@ class Contact(db.Model):
 
 @app.route("/")
 def home():
-    return render_template("index.html",params=params)
+    posts = Post.query.filter_by().all()
+    return render_template("index.html",params=params,posts=posts)
 
 
 @app.route("/contact",methods=["GET","POST"])
@@ -64,6 +74,7 @@ def about():
 @app.route("/post")
 def post():
     return render_template("post.html",params=params)
+   
 
 
 
