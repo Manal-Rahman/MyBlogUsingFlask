@@ -1,7 +1,7 @@
 from flask import Flask,render_template,request,session
 from flask_mysqldb import MySQL
 from flask_sqlalchemy import SQLAlchemy
-
+from datetime import datetime
 
 
 import json
@@ -27,6 +27,7 @@ class Contact(db.Model):
 
 class Post(db.Model):
     id=db.Column(db.Integer,primary_key=True)
+    slug=db.Column(db.String(120),primary_key=False,nullable=False,unique=False)
     heading=db.Column(db.String(120),primary_key=False,nullable=False,unique=False)
     tagline=db.Column(db.String(120),primary_key=False,nullable=False,unique=False)
     data=db.Column(db.String(120),primary_key=False,nullable=False,unique=False)
@@ -71,9 +72,10 @@ def about():
 
 
 
-@app.route("/post")
-def post():
-    return render_template("post.html",params=params)
+@app.route("/post/<string:slug>",methods=["GET"])
+def post(slug):
+    post = Post.query.filter_by(slug=slug).first()
+    return render_template("post.html",params=params,slug=slug,post=post)
    
 
 
