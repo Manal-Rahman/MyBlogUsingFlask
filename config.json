@@ -6,6 +6,9 @@
         "fb_url":"www.facebook.com/manalNasir",
         "twit_url":"www.twitter.com/manalNasir",
         "gb_url":"www.github.com/manalNasir",
+
+        "email":"admin@gmail.com",
+        "pass":"123",
                         
         "blog_about":"Lorem ipsum dolor sit amet, consectetur adipisicing elit. Saepe nostrum ullam eveniet pariatur voluptates odit, fuga atque ea nobis sit soluta odio, adipisci quas excepturi maxime quae totam ducimus consectetur?"
     }

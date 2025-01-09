@@ -15,7 +15,7 @@ with open('config.json','r') as c:
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = "mysql://root:@localhost/blog"
 
-db = SQLAlchemy(app)
+db = SQLAlchemy(app)            
 
 class Contact(db.Model):
     id=db.Column(db.Integer,primary_key=True)
@@ -77,6 +77,34 @@ def post(slug):
     post = Post.query.filter_by(slug=slug).first()
     return render_template("post.html",params=params,slug=slug,post=post)
    
+
+
+# ===================== Login Page ============
+
+
+@app.route("/dashboard",methods=['GET','POST'])
+def dashboard():
+        if ('user' in session and session ['user'] == params['user']):
+            posts=Post.query.all()
+            return render_template('dashboard.html',params=params,posts=posts)
+        
+    
+        if request.method=='POST':
+            username = request.form.get('email')
+            userpass = request.form.get('pass')
+            if (username == params['email'] and userpass == params['pass']):
+                #set the session variable
+                session['user']= username
+                posts=Post.query.all()
+                return render_template('dashboard.html',params=params,posts=posts)
+            
+            
+        
+    
+        return render_template('login.html',params=params)
+        
+    
+
 
 
 
