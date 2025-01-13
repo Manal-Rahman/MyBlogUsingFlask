@@ -1,4 +1,4 @@
-from flask import Flask,render_template,request,session
+from flask import Flask,render_template,request,session,redirect
 from flask_mysqldb import MySQL
 from flask_sqlalchemy import SQLAlchemy
 from datetime import datetime
@@ -14,7 +14,7 @@ with open('config.json','r') as c:
 
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = "mysql://root:@localhost/blog"
-
+app.secret_key = 'super secret key'
 db = SQLAlchemy(app)            
 
 class Contact(db.Model):
@@ -84,7 +84,7 @@ def post(slug):
 
 @app.route("/dashboard",methods=['GET','POST'])
 def dashboard():
-        if ('user' in session and session ['user'] == params['user']):
+        if ('user' in session and session ['user'] == params['email']):
             posts=Post.query.all()
             return render_template('dashboard.html',params=params,posts=posts)
         
@@ -105,6 +105,11 @@ def dashboard():
         
     
 
+@app.route("/logout")
+def logout():
+    
+    session.pop('user')
+    return redirect('/dashboard')
 
 
 
