@@ -113,4 +113,57 @@ def logout():
 
 
 
+# ========================= Delete Post ===========
+@app.route("/delete/<string:id>",methods=['GET',"POST"])
+def delete(id):
+    if ('user' in session and session ['user'] == params['email']):
+        post = Post.query.filter_by(id=id).first()
+        db.session.delete(post)
+        db.session.commit()
+    
+    # session.pop('user')
+    return redirect('/dashboard')
+
+
+# @app.route("/editt")
+# def edit():
+#     if ('user' in session and session ['user'] == params['email']):
+#         post = Post.query.filter_by().first()
+#     return render_template("edit.html",params=params,post=post)
+
+
+
+@app.route("/edit/<string:id>",  methods = ['GET','POST'])
+def edit(id):
+    if ('user' in session and session ['user'] == params['email']):
+        if request.method=='POST':
+            heading = request.form.get('heading')
+            tagline = request.form.get('tagline')
+
+            slug = request.form.get('slug')
+            data = request.form.get('data')
+            date=datetime.now()
+
+            
+            # if id == "0":
+            #     post= Posts(title=box_title,slug=slug,content=content,tagline=tagline,date=date)
+            #     db.session.add(post)
+            #     db.session.commit()
+                
+            if(id==id):
+                post=Post.query.filter_by(id=id).first()
+                post.heading=heading
+                post.tagline=tagline
+                post.slug=slug
+                post.data=data
+                post.date=date
+                db.session.commit()
+                return redirect('/dashboard')
+        post=Post.query.filter_by(id=id).first()
+                
+        return render_template('edit.html',params=params,post=post)
+
+
+
+
 app.run(debug=True)

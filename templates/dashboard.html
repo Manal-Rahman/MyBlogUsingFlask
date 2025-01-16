@@ -6,7 +6,7 @@
                 <div class="row gx-4 gx-lg-5 justify-content-center">
                     <div class="col-md-10 col-lg-8 col-xl-7">
                         <div class="site-heading">
-                            <h1>{{params['blog_title']}}</h1>
+                            <h1>Admin Pannel</h1>
                             <span class="subheading">{{params['blog_tagline']}}</span>
                         </div>
                     </div>
@@ -21,7 +21,7 @@
 
 
                     <!-- <td class=""  > <a href=""> <button class="d-flex justify-content-end mb-4 btn btn-danger" >ADD NEW POST</button></td></a> -->
-                    <td> <a href="" <button class="btn btn-primary text-uppercase" >Add new post</button></td></a> 
+                    <td> <a href="" <button class="btn btn-danger text-uppercase" >Add new post</button></td></a> 
 
                     <td> <a href="/logout" style="margin-left: 430px;" >  <button class="btn btn-danger" >LOGOUT</button></td></a>
                     
@@ -46,8 +46,11 @@
                             <td>{{post.heading}}</td>
                             <td>{{post.tagline}}</td>
                             <td>{{post.date}}</td>
-                            <td><a href=""><button class="btn btn-primary">Edit</button></a></td>
-                            <td><a href=""><button class="btn btn-danger">Delete</button></a></td>
+                            <td> <a href="/edit/{{post.id}}"> <button class="btn btn-primary" >Edit</button></td></a>
+                            <td> <a href="/delete/{{post.id}}" ><button class="btn btn-primary"> Delete</button></td></a>
+                    
+                            <!-- <td><a href=""><button class="btn btn-primary">Edit</button></a></td>
+                            <td><a href=""><button class="btn btn-danger">Delete</button></a></td> -->
                         </tr>
                         {%endfor%}
 
